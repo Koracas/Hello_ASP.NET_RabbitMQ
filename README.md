@@ -12,6 +12,9 @@ Hello_ASP.NET_RabbitMQ\MVC_RabbitMQ\RabbitMQ_Setup\SetupRabbitMQ.bat
   - This bat file will setup the "PangeaRepoQueue" within the RabbitMQ service
   - We use the default exhange for this project   
   - The queue and message are also not durable since they do not need ot survive a server reboot for this project.
+- To monitor RabbitMQ 
+	- Go to localhost:15672 in broswer
+	- Default creds:: u guest | p: guest
 -  Open the Visual Studio 2015 solution here:
 <sub>Hello_ASP.NET_RabbitMQ\MVC_RabbitMQ.sln</sub>
 - Please setup the solution to run multiple startup projects 
