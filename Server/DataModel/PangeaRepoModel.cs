@@ -6,8 +6,7 @@ using System.Threading.Tasks;
 
 namespace Server.DataModel
 {
-    public class PangeaRepoModel
-    {
+    
         public class Owner
         {
             public string login { get; set; }
@@ -111,7 +110,6 @@ namespace Server.DataModel
             public Permissions permissions { get; set; }
         }
 
-    }
 }
 
 

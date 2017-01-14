@@ -7,8 +7,6 @@ Project("{8BB2217D-0F2D-49D1-97BC-3654ED321F3B}") = "MVC_RabbitMQ", "MVC_RabbitM
 EndProject
 Project("{8BB2217D-0F2D-49D1-97BC-3654ED321F3B}") = "Server", "Server\Server.xproj", "{53F26095-6F55-48B6-8F97-5547D6D8139C}"
 EndProject
-Project("{8BB2217D-0F2D-49D1-97BC-3654ED321F3B}") = "PangeaRepoDB", "PangeaRepoDB\PangeaRepoDB.xproj", "{286F21D4-75B7-461F-89FF-A9DA8C756704}"
-EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -23,10 +21,6 @@ Global
 		{53F26095-6F55-48B6-8F97-5547D6D8139C}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{53F26095-6F55-48B6-8F97-5547D6D8139C}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{53F26095-6F55-48B6-8F97-5547D6D8139C}.Release|Any CPU.Build.0 = Release|Any CPU
-		{286F21D4-75B7-461F-89FF-A9DA8C756704}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{286F21D4-75B7-461F-89FF-A9DA8C756704}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{286F21D4-75B7-461F-89FF-A9DA8C756704}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{286F21D4-75B7-461F-89FF-A9DA8C756704}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

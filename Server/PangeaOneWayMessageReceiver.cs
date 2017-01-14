@@ -10,7 +10,7 @@ using System.Net.Http.Headers;          //  Used for http request headers
 using System.Net.Http;                  //  Used for http request
 using Newtonsoft.Json;
 using Server.DataModel;
-using static Server.DataModel.PangeaRepoModel;
+using Microsoft.EntityFrameworkCore;
 
 namespace RabbitMq.OneWayMessage.Receiver
 {
@@ -37,7 +37,7 @@ namespace RabbitMq.OneWayMessage.Receiver
             Console.WriteLine(string.Concat("Message: ", message));
 
             //  Json object to hole the data 
-            List<RepoData> jObjPangeaRepo = new List<RepoData>();
+            List<Server.DataModel.RepoData> jObjPangeaRepo = new List<Server.DataModel.RepoData>();
 
             if (message == "Load Data")
             {
@@ -70,7 +70,84 @@ namespace RabbitMq.OneWayMessage.Receiver
                         try
                         {
                             //Deserialize the string to JSON object
-                            jObjPangeaRepo = JsonConvert.DeserializeObject<List<RepoData>>(pangeaRepoInfo_strJson);
+                            jObjPangeaRepo = JsonConvert.DeserializeObject<List<Server.DataModel.RepoData>>(pangeaRepoInfo_strJson);
+
+                            foreach (Server.DataModel.RepoData curRepo in jObjPangeaRepo)
+                            {
+                                //  Access the DB
+                                using (var db = new Server.PangeaRepoDataContext() )
+                                {
+                                    //
+                                    //  Add in owner data
+                                    //
+
+                                    //  Transform the owner data
+                                    Server.Owner repoOwner = new Server.Owner(curRepo.owner);
+                                    int dbOwnerId = 0;
+                                    var curOwners = (from cur in db.Owner
+                                                     where cur.GitHubId == repoOwner.GitHubId
+                                                     select cur).ToList();
+                                    //  If exists
+                                    if( curOwners.Count > 0 )
+                                    {
+                                        //  Grgab the old ids
+                                        dbOwnerId = curOwners.FirstOrDefault().Id;
+                                        //  ToDo :: should see if there are changes to modify here...
+                                    }
+                                    //  Does not exists add it to the table
+                                    else
+                                    {
+                                        db.Owner.Add(repoOwner);
+                                        db.SaveChanges();
+                                        dbOwnerId = repoOwner.Id;
+                                    }
+
+                                    //
+                                    //  Add in permission data
+                                    //
+
+                                    //  Transform the permission data
+                                    Server.Permissions repoPerm = new Server.Permissions(curRepo.permissions);
+                                    int dbPermissionId = 0;
+                                    var curPermissions = (from cur in db.Permissions
+                                                        where (cur.Admin == repoPerm.Admin && cur.Pull == repoPerm.Pull && repoPerm.Push == cur.Push)
+                                                        select cur).ToList();
+                                    //  If exists
+                                    if (curPermissions.Count > 0)
+                                    {
+                                        //  Grgab the old ids
+                                        dbPermissionId = curPermissions.FirstOrDefault().Id;
+                                        //  ToDo :: should see if there are changes to modify here...
+                                    }
+                                    //  Does not exists add it to the table
+                                    else
+                                    {
+                                        db.Permissions.Add(repoPerm);
+                                        db.SaveChanges();
+                                        dbPermissionId = repoPerm.Id;
+                                    }
+
+                                    //
+                                    //  Add in Repo data
+                                    //
+
+                                    //  Transform the repo data
+                                    Server.RepoData repoData = new Server.RepoData(curRepo, dbOwnerId, dbPermissionId);
+                                    var curRepos = (from cur in db.RepoData
+                                                          where (cur.GitHubId == repoData.GitHubId)
+                                                          select cur).ToList();
+                                    //  If exists skip it...
+                                    if (curRepos.Count > 1)
+                                    {
+                                        //  ToDo :: should see if there are changes to modify here...
+                                    }
+                                    else
+                                    {
+                                        db.RepoData.Add(repoData);
+                                        db.SaveChanges();
+                                    }
+                                }
+                            }
                         }
                         catch(Exception ex)
                         {

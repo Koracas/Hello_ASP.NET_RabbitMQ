@@ -8,6 +8,9 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 
+using Microsoft.EntityFrameworkCore;
+using MVC_RabbitMQ.Entity;
+
 namespace MVC_RabbitMQ
 {
     public class Startup
@@ -35,6 +38,11 @@ namespace MVC_RabbitMQ
         {
             // Add framework services.
             services.AddApplicationInsightsTelemetry(Configuration);
+
+            // Add DB services
+            var connection = @"Server=(localdb)\mssqllocaldb;Database=PangeaRepoData;Trusted_Connection=True;";
+            services.AddDbContext<PangeaRepoDataContext>(options => options.UseSqlServer(connection));
+
 
             services.AddMvc();
         }

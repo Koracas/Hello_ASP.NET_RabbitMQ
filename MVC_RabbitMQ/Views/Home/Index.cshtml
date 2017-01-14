@@ -2,12 +2,23 @@
     ViewData["Title"] = "Home Page";
 }
 
-Put readme here.
+<h1>Pangea Practicum</h1>
+<h3>
+    Goal
+</h3>
+To create a sample project that utilized:
 <ul>
-    <li>
-        Run-time vs Deploy-time creation.
-
-        QueueingBasicConsumer is now depricated
-    </li>
+    <li>ASP.NET Core</li>
+    <li>Entity Framework to write to SQL</li>
+    <li>RabbitMQ for Messaging</li>
 </ul>
 
+<h3>
+    Desired Workflow
+</h3>
+<ul>
+    <li>Create an ASP.NET Core project with a "/LoadData" endpoint which when accessed via a GET method sends a Load Data message to RabbitMQ.</li>
+    <li>Create a consumer that reads messages from RabbitMQ.</li>
+    <li>Make the consumer pull down the repository data from api.github.com/orgs/gopangea/repos and stores it into a SQL database (PostgreSQL, MySQL, or SQL Server is okay) when the Load Data message is received.</li>
+    <li>Create the endpoint "/Repositories" which when accessed through a GET method will return the list of repositories stored in the SQL table in step #3.</li>
+</ul>

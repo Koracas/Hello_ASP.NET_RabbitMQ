@@ -1,0 +1,39 @@
+﻿span.header{
+  color:#233237;
+  font-weight:700;
+}
+
+dt.header{
+    padding-top:10px;
+    padding-bottom:10px;
+    padding-left:5px;
+
+    color:white;
+    background-color:#0B3C5D;
+    border-radius:5px;
+}
+dt.header:hover{
+    background-color:#328CC1;
+    color:whitesmoke;
+}
+
+dt.subHeader{
+    padding-top:5px;
+    padding-bottom:5px;
+    padding-left:5px;
+    margin-left:50px;
+
+    color:white;
+    background-color:grey;
+    border-radius:5px;
+}
+dt.subHeader:hover{
+    color:white;
+    background-color:darkgrey;
+}
+
+dd.subHeader{
+    margin-left:50px;
+    padding-left:15px;
+}
+
